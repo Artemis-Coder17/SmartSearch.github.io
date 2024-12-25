@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart Search</title>
+<style>
+body {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+body.dark-mode {
+  background-color: #121212; /* Dark background */
+  color: #eee; /* Light text */
+}
+
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .container {
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+#search-bar {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode #search-bar {
+    border-color: #555;
+    background-color: #333;
+    color: #eee;
+}
+
+#search-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#search-button:hover {
+  background-color: #45a049;
+}
+
+body.dark-mode #search-button {
+    background-color: #007bff;
+}
+
+body.dark-mode #search-button:hover{
+    background-color: #0056b3;
+}
+
+#dark-mode-toggle {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #ddd;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode #dark-mode-toggle{
+    background-color: #555;
+    color: #eee;
+}
+
+#dark-mode-toggle:hover {
+    background-color: #ccc;
+}
+
+body.dark-mode #dark-mode-toggle:hover {
+    background-color: #666;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Smart Search</h1>
+  <input type="text" id="search-bar" placeholder="Enter your search term">
+  <button id="search-button">Search</button>
+    <button id="dark-mode-toggle">Toggle Dark Mode</button>
+
+  <script>
+    const searchBar = document.getElementById('search-bar');
+    const searchButton = document.getElementById('search-button');
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const body = document.body;
+
+    searchButton.addEventListener('click', performSearch);
+    searchBar.addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            performSearch();
+        }
+    });
+
+    darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
+    });
+
+    //Check local storage for dark mode preference on load
+    if (localStorage.getItem('darkMode') === 'true') {
+        body.classList.add('dark-mode');
+    }
+
+    function performSearch() {
+      const searchTerm = searchBar.value;
+      const youtubeChannel = "Gate Smashers";
+      const searchQuery = `${searchTerm} ${youtubeChannel}`;
+      const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+      window.open(youtubeUrl, '_blank');
+    }
+  </script>
+</div>
+</body>
+</html>
